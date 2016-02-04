@@ -1,0 +1,7 @@
+#+TITLE: region-command-mode.el
+#+AUTHOR: Jeff Bellegarde
+
+A more for activating keybinds when the region is active.
+
+Similiar to [[https://github.com/fgallina/region-bindings-mode][region-bindings-mode]].
+
