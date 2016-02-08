@@ -43,6 +43,13 @@
            ("r" . rectangle-mark-mode)
            ("x" . exchange-point-and-mark))
 
+(defun region-command-mode--ensure-mode-keymap-is-accessible (test-key minor-mode-name)
+  (unless (eq (car (car (minor-mode-key-binding ".")))
+              minor-mode-name)
+    (let ((mode-entry (assoc minor-mode-name minor-mode-map-alist)))
+      (setq minor-mode-map-alist (assq-delete-all minor-mode-name minor-mode-map-alist))
+      (push mode-entry minor-mode-map-alist))))
+
 (define-minor-mode region-command-active-mode
   "Allows commands when the region is active.
 
@@ -55,6 +62,7 @@ hook `region-command-active-mode-hook' can be used."
   :keymap region-command-mode-keymap
   (if region-command-active-mode
       (progn
+        (region-command-mode--ensure-mode-keymap-is-accessible "." 'region-command-active-mode)
         (add-hook 'post-command-hook 'region-command-mode--check-if-done)
         (setq region-command-mode-start-position (point)))
     (remove-hook 'post-command-hook 'region-command-mode--check-if-done)
