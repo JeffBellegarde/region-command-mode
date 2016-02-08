@@ -44,7 +44,7 @@
            ("x" . exchange-point-and-mark))
 
 (defun region-command-mode--ensure-mode-keymap-is-accessible (test-key minor-mode-name)
-  (unless (eq (car (car (minor-mode-key-binding ".")))
+  (unless (eq (car (car (minor-mode-key-binding "<SPC>")))
               minor-mode-name)
     (let ((mode-entry (assoc minor-mode-name minor-mode-map-alist)))
       (setq minor-mode-map-alist (assq-delete-all minor-mode-name minor-mode-map-alist))
